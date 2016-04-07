@@ -1,0 +1,12 @@
+{
+  "name": "NbaLogsApi1415",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "~4.2.0",
+    "mongodb": "^2.0.55",
+    "mongoose": "latest",
+    "mongoskin": "^2.0.3",
+    "morgan": "^1.7.0"
+  }
+}
