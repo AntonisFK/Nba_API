@@ -21,5 +21,10 @@ module.exports = function(app) {
     api.teamStat(req, res);
   })
 
+  app.get('/playervsplayer/:players', function(req, res){
+    console.log("playervsplayer");
+    api.playervsplayer(req, res);
+  })
+
 }
 
