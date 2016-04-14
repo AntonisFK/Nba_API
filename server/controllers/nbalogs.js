@@ -1,16 +1,21 @@
 var mongoose = require('mongoose'); 
 var NbaLog = mongoose.model('NbaLog');
-
+var meta = { meta:{author:["Antonis Fkiaras"]}}
 module.exports = (function(){
   return{
     player: function(req, res){
-      console.log(req.params.player)
+      req.accepts('application/json')
       NbaLog.find({Player: req.params.player }).sort({date: -1}).exec(function(err, logs){
-        res.json(logs);
+        // res.set('Content-Type','application/vnd.api+json')
+        if(logs === []){
+          res.status(400).send('Bad Request')
+        }
         if(err){
           console.log(err);
         }
+        res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
       })
+        
     },
     team: function(req, res){
       console.log(req.params);
