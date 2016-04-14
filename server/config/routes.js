@@ -1,6 +1,12 @@
 var api = require('./../controllers/nbalogs.js');
 
 module.exports = function(app) {
+  
+  app.get('/logs/:id', function(req, res){
+    console.log('logs/:id');
+    api.logsId(req, res); 
+  })
+
   app.get('/player/:player', function(req, res){
     console.log('show routes');
     api.player(req, res);
@@ -11,7 +17,7 @@ module.exports = function(app) {
     api.team(req, res);
   })
 
-  app.get('/player/:player/stat/:stat', function(req, res){
+  app.get('/player/:player/:stat', function(req, res){
     console.log('/:player/stat')
     api.playerStat(req, res);
   })

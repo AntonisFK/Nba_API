@@ -1,19 +1,52 @@
 var mongoose = require('mongoose'); 
 var NbaLog = mongoose.model('NbaLog');
-var meta = { meta:{author:["Antonis Fkiaras"]}}
+var meta = {author:{github: "AntonisFK"}}
+var checkForHexReqExp = new RegExp("^[0-9a-fA-F]{24}$");
+
 module.exports = (function(){
   return{
+    
+    logsId: function(req, res){
+      console.log("logsId", req.params)
+      var id = req.params.id; 
+
+      if(!checkForHexReqExp.test(req.params.id)){
+        res.status(400).send('Bad Request')} 
+      else {
+        mongoose.Types.ObjectId(id);
+        NbaLog.findOne({_id: id}).sort({date: -1}).exec(function(err, logs){
+          if(err){
+            console.log(err); 
+          }
+         if(logs === null){
+          res.status(400).send('Bad Request') 
+         }
+         else {
+           res.json(logs); 
+         }
+       })
+      }
+    },
+
+
+
+
     player: function(req, res){
-      req.accepts('application/json')
+ 
       NbaLog.find({Player: req.params.player }).sort({date: -1}).exec(function(err, logs){
         // res.set('Content-Type','application/vnd.api+json')
-        if(logs === []){
+        console.log( logs.length)
+        if(logs.length === 0){
+          console.log("empty")
           res.status(400).send('Bad Request')
+        } else {
+          res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
+
         if(err){
           console.log(err);
         }
-        res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
+        
       })
         
     },
