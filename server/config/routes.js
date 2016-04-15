@@ -17,19 +17,24 @@ module.exports = function(app) {
     api.team(req, res);
   })
 
-  app.get('/player/:player/:stat', function(req, res){
+  app.get('/player/:player/:include', function(req, res){
     console.log('/:player/stat')
     api.playerStat(req, res);
   })
 
-  app.get('/team/:team/stat/:stat', function(req, res){
+  app.get('/team/:team/:include', function(req, res){
     console.log(":team/stat/:stat");
     api.teamStat(req, res);
   })
 
-  app.get('/playervsplayer/:players', function(req, res){
+  app.get('/players/:players', function(req, res){
     console.log("playervsplayer");
-    api.playervsplayer(req, res);
+    api.players(req, res);
+  })
+
+  app.get('/players/:players/:include', function(req, res){
+    console.log("player/:include");
+    api.playersStat(req, res);
   })
 
 }
