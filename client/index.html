@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Nba Player Logs APi</a>
+     
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -67,14 +67,78 @@
   
 
   <div class="container">
-    <div class="blog-header">
-      <h2 class="blog-title">Welcome to Nba Players Log Api</h2>
-      <p class="lead blog-description">Currently only serving 2014-2015 sesson stats </p>
+    <div class="header ">
+      <h2 class="text-center">NBA Players Log Api</h2>
+      <p class="text-center">Currently only serving 2014-2015 season stats </p>
     </div>
   <div class="row">
-    <div class="col-sm-8 blog-main">
-      <h2 class="blog-title">Usage</h2>
+    
+    <div class="col-lg-4">
+      <h2 class="text-center">About</h2>
+      <p>The NBA Players Log Api servers json data of ever game played for all NBA players during the 14-15 season. Data includes game stats, vegas lines and Daily fantasy points. A response from a get request will server you json data as such: </p>
+      <pre>
+        <code>data: {
+    "_id" : ObjectId("570461629be563e32961cbd0"),
+    "Player" : "Giannis Antetokounmpo",
+    "Tm" : "MIL",
+    "Date" : "3/14/2015",
+    "Rk" : 3199,
+    "Age" : "20-098",
+    "Pos" : "G-F",
+    "Home" : "False",
+    "Opp" : "MEM",
+    "W/L" : "L",
+    "GS" : 1,
+    "MP" : 39,
+    "FG" : 7,
+    "FGA" : 10,
+    "FGP" : 0.7,
+    "2P" : 7,
+    "2PA" : 9,
+    "2PP" : 0.778,
+    "3P" : 0,
+    "3PA" : 1,
+    "3PP" : 0,
+    "FT" : 5,
+    "FTA" : 6,
+    "FTT" : 0.83,
+    "ORB" : 1,
+    "DRB" : 5,
+    "TRB" : 6,
+    "AST" : 2,
+    "STL" : 0,
+    "BLK" : 0,
+    "TOV" : 2,
+    "PF" : 3,
+    "PTS" : 19,
+    "GmSc" : 14.8,
+    "Line" : 6.5,
+    "O/U" : 183.5,
+    "DK" : 28.5,
+    "FD" : 27.2
+  }</code>
+      </pre>
+      <h2 class="text-center">Usage</h2>
+      <p>The NBA Players logs Api responds with json to get request.</p>
+      <h3>Get /logs/{:id}</h3>
+      <p>Search with id</p>
+      <pre><code>/logs/570461629be563e32961cbd0</code></pre>
+      
+      <h3>Get /players/{player name}</h3>
+      <p>When spelling player name use a space and Capitalize first and last name </p>
+      <pre><code>/players/ A.J. Price</code></pre>
+      
+      <h3>Get /team/{team}</h3>
+      <p>Capitalize and use abbreviated name to search for team</p>
+      <pre><code>/team/GSW</code></pre>
+    
+      <h3>Get /player/{player name}/{include}</h3>
+      <p>Search by player and only include </p>
+
+
+
     </div>
+  
   </div>
 
   </div>
