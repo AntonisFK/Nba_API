@@ -20,7 +20,28 @@
   <script type="text/javascript">
   var app = angular.module('myApp',['ui.bootstrap'])
 
-  app.controller("indexController", function($scope){
+
+  app.factory('indexFactory', function($http){
+    var factory = {}; 
+    var count 
+
+    factory.getCount = function(callback){
+      $http.get('/count').success(function(output){
+        console.log(output);
+        count = output
+        callback(count);
+      })
+    }
+    return factory; 
+  })
+  
+  app.controller("indexController", function($scope, $interval, indexFactory){
+    
+    $interval(
+      indexFactory.getCount(function(count){
+      $scope.count = count;
+      console.log($scope.count)
+    }) ,5000);
 
   })
 
@@ -62,93 +83,95 @@
       <h2 class="text-center">Basketball Players Log Api</h2>
       <p class="text-center">Currently only serving 2014-2015 season stats </p>
     </div>
-  <div class="row">
-    
-    <div class="col-lg-8" id='content'>
-      <h2 class="text-center">About</h2>
-      <p>The Basketball Players Log Api servers json data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines and Daily fantasy points. A response from a get request will server you json data as such: </p>
-      <pre>
-        <code>data: {
-    "_id" : ObjectId("570461629be563e32961cbd0"),
-    "Player" : "Giannis Antetokounmpo",
-    "Tm" : "MIL",
-    "Date" : "3/14/2015",
-    "Rk" : 3199,
-    "Age" : "20-098",
-    "Pos" : "G-F",
-    "Home" : "False",
-    "Opp" : "MEM",
-    "W/L" : "L",
-    "GS" : 1,
-    "MP" : 39,
-    "FG" : 7,
-    "FGA" : 10,
-    "FGP" : 0.7,
-    "2P" : 7,
-    "2PA" : 9,
-    "2PP" : 0.778,
-    "3P" : 0,
-    "3PA" : 1,
-    "3PP" : 0,
-    "FT" : 5,
-    "FTA" : 6,
-    "FTT" : 0.83,
-    "ORB" : 1,
-    "DRB" : 5,
-    "TRB" : 6,
-    "AST" : 2,
-    "STL" : 0,
-    "BLK" : 0,
-    "TOV" : 2,
-    "PF" : 3,
-    "PTS" : 19,
-    "GmSc" : 14.8,
-    "Line" : 6.5,
-    "O/U" : 183.5,
-    "DK" : 28.5,
-    "FD" : 27.2
-  }</code>
-      </pre>
-      <hr>
-      <h2 class="text-center">Usage</h2>
-      <p>The NBA Players logs Api responds with json to get request.</p>
-      <h3>Get /logs/{:id}</h3>
-      <p>Search with id</p>
-      <pre><code>/logs/570461629be563e32961cbd0</code></pre>
+    <div class="row">
       
-      <h3>Get /players/{player name}</h3>
-      <p>When spelling player name use a space and Capitalize first and last name </p>
-      <pre><code>/players/ A.J. Price</code></pre>
-      
-      <h3>Get /team/{team}</h3>
-      <p>Capitalize and use abbreviated name to search for team</p>
-      <pre><code>/team/GSW</code></pre>
+      <div class="col-lg-8" id='content'>
+        <h2 class="text-center">About</h2>
+        <p>The Basketball Players Log Api servers json data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines and Daily fantasy points. A response from a get request will server you json data as such: </p>
+        <pre>
+          <code>data: {
+      {  "_id" : ObjectId("570461629be563e32961cbd0"),
+          "Player" : "Giannis Antetokounmpo",
+          "Tm" : "MIL",
+          "Date" : "3/14/2015",
+          "Rk" : 3199,
+          "Age" : "20-098",
+          "Pos" : "G-F",
+          "Home" : "False",
+          "Opp" : "MEM",
+          "W/L" : "L",
+          "GS" : 1,
+          "MP" : 39,
+          "FG" : 7,
+          "FGA" : 10,
+          "FGP" : 0.7,
+          "2P" : 7,
+          "2PA" : 9,
+          "2PP" : 0.778,
+          "3P" : 0,
+          "3PA" : 1,
+          "3PP" : 0,
+          "FT" : 5,
+          "FTA" : 6,
+          "FTT" : 0.83,
+          "ORB" : 1,
+          "DRB" : 5,
+          "TRB" : 6,
+          "AST" : 2,
+          "STL" : 0,
+          "BLK" : 0,
+          "TOV" : 2,
+          "PF" : 3,
+          "PTS" : 19,
+          "GmSc" : 14.8,
+          "Line" : 6.5,
+          "O/U" : 183.5,
+          "DK" : 28.5,
+          "FD" : 27.2}
+      }</code>
+          </pre>
+          <hr>
+          <h2 class="text-center">Usage</h2>
+          <p>The NBA Players logs Api responds with json to get request.</p>
+          <h3>Get /logs/{:id}</h3>
+          <p>Search with id</p>
+          <pre><code>/logs/570461629be563e32961cbd0</code></pre>
+          
+          <h3>Get /players/{player name}</h3>
+          <p>When spelling player name use a space and Capitalize first and last name </p>
+          <pre><code>/players/ A.J. Price</code></pre>
+          
+          <h3>Get /team/{team}</h3>
+          <p>Capitalize and use abbreviated name to search for team</p>
+          <pre><code>/team/GSW</code></pre>
+        
+          <h3>Get /player/{player name}/{include}</h3>
+          <p>Search by player and only include certain stats</p>
+          <pre><code>/player/Klay Thompson/Opp, TOV, PTS, Line</code></pre>
+
+          <h3>Get /players/{players names}</h3>
+          <p>Get json by players use a space and comma</p>
+          <pre><code>/players/Klay Thompson, Draymond Green</code></pre>
+
+          <h3>Get /players/{players names}/{include}</h3>
+          <p>Get json by players and include certain stats. To differentiate players include Player stat</p>
+          <pre><code>/players/Klay Thompson, Draymond Green/Player, Opp, BLK</code></pre>
+          
+          <hr>
+          
+        <h5 class="green">Vistors</h5>
+        <!--Number-->
+        <span class='number-count' data-from="0" data-form="{{count}}" data-speed="2000" data-refresh-interval="100">{{count}}</span>
+
+
+
+      </div>
     
-      <h3>Get /player/{player name}/{include}</h3>
-      <p>Search by player and only include certain stats</p>
-      <pre><code>/player/Klay Thompson/Opp, TOV, PTS, Line</code></pre>
-
-      <h3>Get /players/{players names}</h3>
-      <p>Get json by players use a space and comma</p>
-      <pre><code>/players/Klay Thompson, Draymond Green</code></pre>
-
-      <h3>Get /players/{players names}/{include}</h3>
-      <p>Get json by players and include certain stats. To differentiate players include Player stat</p>
-      <pre><code>/players/Klay Thompson, Draymond Green/Player, Opp, BLK</code></pre>
-
-
     </div>
   
   </div>
-  <div class="row">
-    <form>
-      <input type="text" >
-    </form>
 
 
-  </div>
-
-  </div>
     
     
 </body>

@@ -1,8 +1,11 @@
 var mongoose = require('mongoose'); 
 var NbaLog = mongoose.model('NbaLog');
+
 var meta = {author:{github: "AntonisFK"}}
 var checkForHexReqExp = new RegExp("^[0-9a-fA-F]{24}$");
 var checkForSpecChar = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';/{}|\\":<>\?]/)
+var getCount = 0; 
+
 
 module.exports = (function(){
   return{
@@ -23,7 +26,8 @@ module.exports = (function(){
           res.status(400).send('Bad Request') 
          }
          else {
-           res.json(logs); 
+          getCount ++;
+          res.json(logs); 
          }
        })
       }
@@ -38,7 +42,8 @@ module.exports = (function(){
           console.log("empty")
           res.status(400).send('Bad Request')
         } else {
-          res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
+          getCount++;
+          res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
 
         if(err){
@@ -58,6 +63,7 @@ module.exports = (function(){
             console.log("empty")
             res.status(400).send('Bad Request');
           } else {
+            getCount++;
             res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
           }
 
@@ -91,6 +97,7 @@ module.exports = (function(){
           console.log("empty")
           res.status(400).send('Bad Request')
         } else {
+          getCount++;
           res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
 
@@ -114,7 +121,8 @@ module.exports = (function(){
           console.log("empty")
           res.status(400).send('Bad Request')
         } else {
-          res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
+          getCount ++; 
+          res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
 
         if(err){
@@ -134,7 +142,8 @@ module.exports = (function(){
           console.log("empty")
           res.status(400).send('Bad Request')
         } else {
-          res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
+          getCount++ ; 
+          res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
 
         if(err){
@@ -158,7 +167,8 @@ module.exports = (function(){
           res.status(400).send('Bad Request')
         } 
         else {
-          res.type('application/json').json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
+          getCount++;
+          res.json({meta, data:{type:"Nba 2014, 2015 player logs"},logs})
         }
 
         if(err){
@@ -167,6 +177,11 @@ module.exports = (function(){
         }
     })
 
+  },
+
+  count: function(req, res){
+    console.log(getCount)
+    res.json(getCount);
   }
 }
 })();  

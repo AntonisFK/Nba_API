@@ -2,6 +2,7 @@ var api = require('./../controllers/nbalogs.js');
 
 module.exports = function(app) {
   
+
   app.get('/logs/:id', function(req, res){
     console.log('logs/:id');
     api.logsId(req, res); 
@@ -10,6 +11,7 @@ module.exports = function(app) {
   app.get('/player/:player', function(req, res){
     console.log('show routes');
     api.player(req, res);
+  
   });
 
   app.get('/team/:team', function(req, res){
@@ -37,6 +39,10 @@ module.exports = function(app) {
     api.playersStat(req, res);
   })
 
+  app.get('/count', function(req, res){
+    console.log('/count');
+    api.count(req, res);
+  })
  
 app.use(function(req, res, next) {
   res.status(404).send(" <h1>Ummm......</h1>");
