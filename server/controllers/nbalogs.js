@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'); 
 var NbaLog = mongoose.model('NbaLog');
+
 var meta = {author:{github: "AntonisFK"}}
 var checkForHexReqExp = new RegExp("^[0-9a-fA-F]{24}$");
 var checkForSpecChar = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';/{}|\\":<>\?]/)

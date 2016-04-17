@@ -1,4 +1,6 @@
 var api = require('./../controllers/nbalogs.js');
+var client = require('./../controllers/client.js');
+
 
 module.exports = function(app) {
   
@@ -37,7 +39,10 @@ module.exports = function(app) {
     api.playersStat(req, res);
   })
 
- 
+  app.post('/clients', function(req, res){
+    console.log("/clients post");
+
+  }) 
 app.use(function(req, res, next) {
   res.status(404).send(" <h1>Ummm......</h1>");
 });
