@@ -16,6 +16,12 @@ div.navbar-collapse.collapse.in {
 }
 
 .container {
-  margin-top: 50px
-  
+  margin-top: 120px
+
 }
+
+#content {
+margin-left: 15%;
+margin-right:20%;
+}
+
