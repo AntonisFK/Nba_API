@@ -37,5 +37,10 @@ module.exports = function(app) {
     api.playersStat(req, res);
   })
 
+ 
+app.use(function(req, res, next) {
+  res.status(404).send(" <h1>Ummm......</h1>");
+});
+
 }
 
