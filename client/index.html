@@ -88,7 +88,7 @@
       
       <div class="col-lg-8" id='content'>
         <h2 class="text-center">About</h2>
-        <p>The Basketball Players Log Api servers data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines, DraftKings and Fanduel fantasy points. A response to GET request will server you JSON data as such: </p>
+        <p>The Basketball Players Log API servers JSON data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines, DraftKings and Fanduel fantasy points. A response to GET request will server you JSON data as such: </p>
         <pre>
           <code>
         {
@@ -103,7 +103,7 @@
           "Pos" : "G-F",
           "Home" : "False",
           "Opp" : "MEM",
-          "W/L" : "L",
+          "WL" : "L",
           "GS" : 1,
           "MP" : 39,
           "FG" : 7,
@@ -129,7 +129,7 @@
           "PTS" : 19,
           "GmSc" : 14.8,
           "Line" : 6.5,
-          "O/U" : 183.5,
+          "OU" : 183.5,
           "DK" : 28.5,
           "FD" : 27.2
           }
@@ -140,7 +140,7 @@
             <ul>
               <li>Here is a good  <a href="http://www.basketball-reference.com/about/glossary.html" target="_blank">source</a> for all the stats abbreviations and <a href="https://en.wikipedia.org/wiki/Wikipedia:WikiProject_National_Basketball_Association/National_Basketball_Association_team_abbreviations" target="_blank">source</a> for team abbreviations.</li>
               <li>On the Age stat, the - after the age is number of days after their most recent birthday.</li>
-              <li><p>Line = Vegas line, O/U = Over under, DK= DraftKing PTS, FD= Fanduel PTS </p></li>
+              <li><p>Line = Vegas line, OU = Over under, DK= DraftKing PTS, FD= Fanduel PTS, WL = win or loss. </p></li>
               <li><p>Make sure to use <b>these</b> acronyms for these teams:</p>
               <table class="table table-hover table-striped" id="acronymsTable">
                 <thead>
