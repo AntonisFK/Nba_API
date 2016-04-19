@@ -2,7 +2,7 @@
 <html lang="en" ng-app='myApp'>
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Ball is Life</title>
 
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.js"></script>
   <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
@@ -43,18 +43,18 @@
       console.log($scope.count)
     }) ,5000);
 
+
   })
 
 
 
   </script>
 <body ng-controller="indexController">
-   <header>
+ 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-
-      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+       <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -69,28 +69,32 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Contact</a></li>     
-        <li class="active"><a href= "//github.com/AntonisFK/Nba_API" target="_blank"> <img src="/static/GitHub-Mark-32px.png" alt=""> </a></li>              
+        <li><a href="mailto:antonisfkiaras@gmail.com"><span class="glyphicon glyphicon-envelope"></span></a></li>     
+        <li class="active"><a id="githubLink"href= "//github.com/AntonisFK/Nba_API" target="_blank"> <img id="github" src="/static/GitHub-Mark-32px.png" alt=""> </a></li>              
       </ul>
     
     </div><!-- /.navbar-collapse -->
   </nav>
-  </header>
+
   
 
   <div class="container">
     <div class="header ">
       <h2 class="text-center">Basketball Players Log Api</h2>
-      <p class="text-center">Currently only serving 2014-2015 season stats </p>
+      <p class="text-center">Currently serving 2014-2015 season stats </p>
+      <p class="text-center">Number of API calls received: {{count}}</p>
     </div>
     <div class="row">
       
       <div class="col-lg-8" id='content'>
         <h2 class="text-center">About</h2>
-        <p>The Basketball Players Log Api servers json data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines and Daily fantasy points. A response from a get request will server you json data as such: </p>
+        <p>The Basketball Players Log Api servers data of ever game played for all NBA players during the 14-15 season. Data includes game stats, Vegas lines, DraftKings and Fanduel fantasy points. A response to GET request will server you JSON data as such: </p>
         <pre>
-          <code>data: {
-      {  "_id" : ObjectId("570461629be563e32961cbd0"),
+          <code>
+        {
+            data: {
+          
+          "_id" : ObjectId("570461629be563e32961cbd0"),
           "Player" : "Giannis Antetokounmpo",
           "Tm" : "MIL",
           "Date" : "3/14/2015",
@@ -127,52 +131,90 @@
           "Line" : 6.5,
           "O/U" : 183.5,
           "DK" : 28.5,
-          "FD" : 27.2}
-      }</code>
-          </pre>
-          <hr>
-          <h2 class="text-center">Usage</h2>
-          <p>The NBA Players logs Api responds with json to get request.</p>
-          <h3>Get /logs/{:id}</h3>
-          <p>Search with id</p>
-          <pre><code>/logs/570461629be563e32961cbd0</code></pre>
+          "FD" : 27.2
+          }
+        }
+     </code></pre>
+          <div id="notes">
+            <h5>Things to note:</h5>
+            <ul>
+              <li>Here is a good  <a href="http://www.basketball-reference.com/about/glossary.html" target="_blank">source</a> for all the stats abbreviations and <a href="https://en.wikipedia.org/wiki/Wikipedia:WikiProject_National_Basketball_Association/National_Basketball_Association_team_abbreviations" target="_blank">source</a> for team abbreviations.</li>
+              <li>On the Age stat, the - after the age is number of days after their most recent birthday.</li>
+              <li><p>Line = Vegas line, O/U = Over under, DK= DraftKing PTS, FD= Fanduel PTS </p></li>
+              <li><p>Make sure to use <b>these</b> acronyms for these teams:</p>
+              <table class="table table-hover table-striped" id="acronymsTable">
+                <thead>
+                  <tr>
+                    <td><b>Abbreviation</b></td>
+                    <td><b>Franchise</b></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GSW</td>
+                    <td>Golden State Warriors</td>
+                  </tr>
+                  <tr>
+                    <td>SAS</td>
+                    <td>San Antonio Spurs</td>
+                  </tr>
+                  <tr>
+                    <td>BRK</td>
+                    <td>Brooklyn Nets</td>
+                  </tr>
+                  <tr>
+                    <td>WAS</td>
+                    <td>Washington Wizards</td>
+                  </tr>
+                  <tr>
+                    <td>CHO</td>
+                    <td>Charlotte Hornets</td>
+                  </tr>
+                </tbody>
+              </table></li>
+            </ul>
+          </div>
+          <div id="Usage">
+            <hr>
+            <h2 class="text-center">Usage</h2>
+            <p>The Basketball Players logs API responds to GET request with JSON data. Bellow are the routes and examples of how to format your GET request. A 400 bad request error will be sent if your GET request is not formated correctly or you misspelled something.</p>
+            <h3>Get /logs/{:id}</h3>
+            <p>Search with id</p>
+            <pre><code>/logs/570461629be563e32961cbd0</code></pre>
+            
+            <h3>Get /players/{player name}</h3>
+            <p>Capitalize first and last name and use a space <b>after</b> the first name.</p>
+            <pre><code>/players/A.J. Price</code></pre>
+            
+            <h3>Get /team/{team}</h3>
+            <p>Capitalize and use abbreviated name to search for team. Make sure to use these <a href="/#acronymsTable">acronyms</a>.</p>
+            <pre><code>/team/GSW</code></pre>
           
-          <h3>Get /players/{player name}</h3>
-          <p>When spelling player name use a space and Capitalize first and last name </p>
-          <pre><code>/players/ A.J. Price</code></pre>
-          
-          <h3>Get /team/{team}</h3>
-          <p>Capitalize and use abbreviated name to search for team</p>
-          <pre><code>/team/GSW</code></pre>
+            <h3>Get /player/{player name}/{include}</h3>
+            <p>Returns json data of specified player and stats</p>
+            <pre><code>/player/Klay Thompson/Opp, TOV, PTS, Line</code></pre>
+
+            <h3>Get /players/{players names}</h3>
+            <p>Returns json data of specified players. Make sure to use a space and comma</p>
+            <pre><code>/players/Klay Thompson, Draymond Green</code></pre>
+
+            <h3>Get /players/{players names}/{include}</h3>
+            <p>Returns json data of players and specified stats. Json data will not return player names if Player stat is not included, see example bellow.</p>
+            <pre><code>/players/Klay Thompson, Draymond Green/Player, Opp, BLK</code></pre>
+            
+          </div>
         
-          <h3>Get /player/{player name}/{include}</h3>
-          <p>Search by player and only include certain stats</p>
-          <pre><code>/player/Klay Thompson/Opp, TOV, PTS, Line</code></pre>
-
-          <h3>Get /players/{players names}</h3>
-          <p>Get json by players use a space and comma</p>
-          <pre><code>/players/Klay Thompson, Draymond Green</code></pre>
-
-          <h3>Get /players/{players names}/{include}</h3>
-          <p>Get json by players and include certain stats. To differentiate players include Player stat</p>
-          <pre><code>/players/Klay Thompson, Draymond Green/Player, Opp, BLK</code></pre>
-          
-          <hr>
-          
-        <h5 class="green">Vistors</h5>
-        <!--Number-->
-        <span class='number-count' data-from="0" data-form="{{count}}" data-speed="2000" data-refresh-interval="100">{{count}}</span>
-
-
 
       </div>
     
+    
     </div>
+
   
-  </div>
-
-
-    
-    
+  </div>   
+    <div class="footer">
+    <hr>
+        <a class="gh-btn" id="gh-btn" href="https://github.com/AntonisFK" target="_blank" aria-label="Follow @AntonisFk on GitHub"> Follow @AntonisFk</a>
+      </div> 
 </body>
 </html>

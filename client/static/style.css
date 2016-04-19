@@ -1,3 +1,8 @@
+*{
+  font-family: Tahoma;
+}
+
+
 .icon-github {
   background-image:url('./GitHub-Mark-32px.png')
 }
@@ -20,8 +25,32 @@ div.navbar-collapse.collapse.in {
 
 }
 
+
 #content {
 margin-left: 15%;
 margin-right:20%;
 }
 
+.footer {
+  padding-top: 50px;
+
+}
+
+.footer a {
+  padding: 40px ; 
+  margin-left: 15%
+
+
+}
+
+.glyphicon {
+  margin-top: 6px;
+  width: 28px;  // 14px * 2
+  height: 28px; // 14px * 2
+  background-size: 938px 318px;  // original dimensions * 2
+  background-position: -624px -48px;
+}
+
+#githubLink {
+  background-color: transparent;
+}
